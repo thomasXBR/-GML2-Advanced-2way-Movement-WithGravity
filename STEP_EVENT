@@ -1,0 +1,8 @@
+// SET HORIZONTAL & VERTICAL MOVEMENT
+xspd = 0;
+yspd = 0;
+
+// SET MOVEMENT SPEED, JUMP SPEED AND GRAVITY FORCE
+_move_spd = 4;
+_jump_spd = -8;
+_grav = 0.3;
