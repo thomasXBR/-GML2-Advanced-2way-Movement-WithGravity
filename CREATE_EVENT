@@ -1,0 +1,46 @@
+// INPUTS
+var _right = keyboard_check(vk_right);
+var _left = keyboard_check(vk_left);
+var _up = keyboard_check(vk_up);
+
+// SPRITES
+if (_right) {
+	sprite_index = spr_player_walk;
+} else if (_left){
+	sprite_index = spr_player_walk_left;
+} else {
+	sprite_index = spr_player;
+}
+
+// HORIZONTAL MOVEMENT
+xspd = (_right - _left) * _move_spd;
+
+// GRAVITY
+yspd += _grav;
+
+// JUMP MECHANIC (only if touching the ground)
+if (_up && place_meeting(x, y + 1, obj_gnd)) {
+    yspd = _jump_spd;
+}
+
+// HORIZONTAL COLLISION
+if (place_meeting(x + xspd, y, obj_gnd)) {
+    var _px = sign(xspd);
+    while (!place_meeting(x + _px, y, obj_gnd)) {
+        x += _px;
+    }
+    xspd = 0;
+}
+
+// VERTICAL COLLISION
+if (place_meeting(x, y + yspd, obj_gnd)) {
+    var _py = sign(yspd);
+    while (!place_meeting(x, y + _py, obj_gnd)) {
+        y += _py;
+    }
+    yspd = 0;
+}
+
+// APPLIES MOVEMENT
+x += xspd;
+y += yspd;
